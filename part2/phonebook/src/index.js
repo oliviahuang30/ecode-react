@@ -6,78 +6,67 @@ import ReactDOM from 'react-dom';
 import React, { useState } from 'react'
 
 const App = () => {
-  const [ persons, setPersons ] = useState([
-    { name: 'Arto Hellas' }
+  // const [ persons, setPersons ] = useState([
+  //   { name: 'Arto Hellas' }
+  // ])
+  // const [ newName, setNewName ] = useState('')
+  // const [ numbers, setNumbers ] = useState([ { number: '12345' } ])
+  // const [ newNumber, setNewNumber] = useState('')
+  const [ namenum, setNameNum ] = useState([
+    { name: 'Arto Hellas' },
+    { number: '12345' }
   ])
-  const [ newName, setNewName ] = useState('')
-  const [ numbers, setNumbers ] = useState([ { number: '12345' } ])
-  const [ newNumber, setNewNumber] = useState('')
+  const [ newnamenum, setnewnamenum ] = useState([
+    { name: '' },
+    { number: '' }
+  ])
   const [showAll, setShowAll] = useState(true)
 
   const addNameNum = (person, number) => {
     person.preventDefault()
     // number.preventDefault()
-    const nameObject = {
-      name: newName
-    }
-    const numberObject = {
-      number: newNumber
+    const namenumObject = {
+      name: newnamenum.name,
+      number: newnamenum.number
     }
 
-    setPersons(persons.concat(nameObject))
-    setNewName('')
-    setNumbers(numbers.concat(numberObject))
-    setNewNumber('')
+    setNameNum(namenum.concat(namenumObject))
+    setnewnamenum('')
   }
 
-  // const addName = (person) => {
-  //   person.preventDefault()
-  //   const nameObject = {
-  //     name: newName
-  //   }
-  //
-  //   setPersons(persons.concat(nameObject))
-  //   setNewName('')
+  // const handleNameChange = (name) => {
+  //   console.log(name.target.value)
+  //   setNewName(name.target.value)
   // }
-  //
-  // const addNumber = (number) => {
-  //   number.preventDefault()
-  //   const numberObject = {
-  //     number: newNumber
-  //   }
-  //
-  //   setNumbers(numbers.concat(numberObject))
-  //   setNewNumber('')
+  // const handleNumberChange = (number) => {
+  //   console.log(number.target.value)
+  //   setNewNumber(number.target.value)
   // }
 
-  const handleNameChange = (name) => {
-    console.log(name.target.value)
-    setNewName(name.target.value)
-  }
-  const handleNumberChange = (number) => {
-    console.log(number.target.value)
-    setNewNumber(number.target.value)
+  const handlenamenumchange = (event) => {
+    console.log(event.target.value)
+    setnewnamenum(event.target.value)
   }
 
-  const namesToShow = showAll
-    ? persons
-    : persons.filter (p => p.important)
+  const namenumsToShow = showAll
+    ? namenum
+    : namenum.filter (p => p.important)
 
-  const numbersToShow = showAll
-    ? numbers
-    : numbers.filter (p => p.important)
 
   return (
     <div>
       <h2>Phonebook</h2>
       <form onSubmit={addNameNum}>
         <div>
-          name: <input
-          value={newName}
-          onChange={handleNameChange}/>
-          number: <input
-          value={newNumber}
-          onChange={handleNumberChange}
+          name:
+          <input
+          value={newnamenum.name}
+          onChange={handlenamenumchange}
+          />
+          number:
+          <input
+          value={newnamenum.number}
+          onChange={handlenamenumchange}
           />
         </div>
         <div>
@@ -86,8 +75,7 @@ const App = () => {
       </form>
       <h2>Numbers</h2>
       <ul>
-        {namesToShow.map(n => <p>{n.name}</p>)}
-        {numbersToShow.map(n => <p>{n.number}</p>)}
+        {namenumsToShow.map(n => <p>{n.name} {n.number}</p>)}
       </ul>
     </div>
   )
